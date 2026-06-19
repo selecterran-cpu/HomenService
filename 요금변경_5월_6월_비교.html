@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>요금 변경 비교 · 5월 → 6월</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;background:#F4F6FB;color:#1A1F2E;line-height:1.5;padding:24px 16px}
+  .wrap{max-width:920px;margin:0 auto}
+  h1{font-size:22px;font-weight:800;margin-bottom:4px}
+  .sub{font-size:13px;color:#6B7388;margin-bottom:20px}
+  .legend{display:flex;gap:14px;font-size:12px;color:#6B7388;margin-bottom:16px;flex-wrap:wrap}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 10px rgba(15,22,38,.06);margin-bottom:22px}
+  thead th{background:#2A2F3E;color:#fff;font-size:12px;font-weight:700;padding:11px 12px;text-align:left}
+  tbody td{padding:11px 12px;border-bottom:1px solid #EEF0F4;font-size:13px;vertical-align:top}
+  tbody tr:last-child td{border-bottom:none}
+  .sec{background:#EFE7FA;font-weight:800;color:#5A2A9F;font-size:12px}
+  .sec.new{background:#FDECEC;color:#B3001B}
+  .item{font-weight:700;white-space:nowrap}
+  .old{color:#9097A6;text-decoration:line-through}
+  .new{color:#E8001C;font-weight:800}
+  .new.free{color:#15803D}
+  .badge{display:inline-block;font-size:9px;font-weight:800;padding:1px 6px;border-radius:7px;margin-left:4px;vertical-align:middle}
+  .badge.blue{background:#E3EEFE;color:#1D4ED8}
+  .badge.amber{background:#FEF3DD;color:#B45309}
+  .badge.green{background:#E6F4EA;color:#15803D}
+  .badge.red{background:#FDECEC;color:#B3001B}
+  .note{font-size:11px;color:#6B7388;margin-top:3px}
+  .footer{font-size:11px;color:#9097A6;margin-top:18px;line-height:1.7}
+  h2.section-title{font-size:14px;font-weight:800;color:#1A1F2E;margin:26px 0 10px;padding-left:2px;border-left:4px solid #5A2A9F;padding-left:8px}
+  @media print{body{background:#fff;padding:0}.wrap{max-width:100%}table{box-shadow:none;border:1px solid #ddd}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🧾 요금 변경 비교 · 5월 → 6월</h1>
+  <div class="sub">SK브로드밴드 요금계산기 · 5월 대비 6월 변경 내역 (전체 갱신판)</div>
+  <div class="legend">
+    <span><span class="dot" style="background:#9097A6"></span>5월(기존)</span>
+    <span><span class="dot" style="background:#E8001C"></span>6월(변경)</span>
+    <span><span class="dot" style="background:#15803D"></span>무료/단종 등 표기</span>
+    <span><span class="dot" style="background:#B3001B"></span>6월 신규 기능</span>
+  </div>
+
+  <h2 class="section-title">메인 CA상품</h2>
+  <table>
+    <thead>
+      <tr><th style="width:24%">위치</th><th style="width:20%">항목</th><th style="width:28%">5월</th><th style="width:28%">6월</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CA상품 · 셋톱박스</td><td class="item">Smart 3</td>
+        <td class="old">무료 (+0원)</td><td class="new">POP100 +4,400 / 180 +3,300 / 230 +2,200원</td>
+      </tr>
+      <tr>
+        <td>CA상품 · 셋톱박스</td><td class="item">AI 2</td>
+        <td class="old">무료</td><td class="new free">단종</td>
+      </tr>
+      <tr>
+        <td>CA상품 · 추가 셋톱박스</td><td class="item">Smart 3</td>
+        <td class="old">채널 요금만</td>
+        <td class="new">채널 요금 + Smart 3 POP별(100 4,400 / 180 3,300 / 230 2,200)<div class="note">채널 먼저 선택 → 셋톱박스 활성화</div></td>
+      </tr>
+      <tr>
+        <td>CA상품 · 추가 셋톱박스</td><td class="item">AI 2</td>
+        <td class="old">무료</td><td class="new free">단종</td>
+      </tr>
+      <tr>
+        <td>CA상품 · 예상요금 (POP180·POP230)</td><td class="item">인터넷+TV 우리집결합</td>
+        <td class="old">기존 결합할인</td><td class="new">결합할인 −3,300원 축소</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">업셀/다셋 · IP상품 <span class="badge red">대폭 개편</span></h2>
+  <table>
+    <thead>
+      <tr><th style="width:24%">위치</th><th style="width:20%">항목</th><th style="width:28%">5월</th><th style="width:28%">6월</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="sec new" colspan="4">고객 구분 체계 변경 (2단계 → 3단계)</td></tr>
+      <tr>
+        <td>IP 업셀 · 고객 구분</td><td class="item">탭 구조</td>
+        <td class="old">1년 이하 고객 / 1년 초과 고객 (2단계)</td>
+        <td class="new">6개월 미만 / 7개월~1년 / 1년 초과 고객 (3단계)<div class="note">"1년 초과 고객" 클릭 시 3년 약정 · 약정불일치 세부 선택 노출</div></td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 뱃지</td><td class="item">6개월 미만</td>
+        <td class="old">—</td>
+        <td class="new free">3년 약정 <span class="badge blue">신규</span></td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 뱃지</td><td class="item">7개월~1년</td>
+        <td class="old">—</td>
+        <td class="new">2년 약정불일치 <span class="badge amber">신규</span></td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 뱃지</td><td class="item">1년 초과 세부선택</td>
+        <td class="old">약정불일치 (고정 뱃지)</td>
+        <td class="new">3년 약정 / 약정불일치 중 선택<div class="note">클릭 시 하위 탭으로 분기</div></td>
+      </tr>
+
+      <tr><td class="sec new" colspan="4">채널 요금 변경</td></tr>
+      <tr>
+        <td>IP 업셀 · 채널요금</td><td class="item">6개월 미만 (이코노미/스탠다드/ALL)</td>
+        <td class="old">12,100 / 15,400 / 18,700원</td>
+        <td class="new">12,100 / 15,400 / 18,700원 (동일)</td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 채널요금</td><td class="item">7개월~1년 (이코노미/스탠다드/ALL)</td>
+        <td class="old">— (구분 없음)</td>
+        <td class="new">18,700 / 22,000 / 25,300원 <span class="badge red">신규 구간</span></td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 채널요금</td><td class="item">1년 초과 · 3년 약정 (이코노미/스탠다드/ALL)</td>
+        <td class="old">6,050 / 7,700 / 9,350원</td>
+        <td class="new">6,050 / 7,700 / 9,350원 (동일, 정상가 기준)</td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 채널요금</td><td class="item">1년 초과 · 약정불일치 (이코노미/스탠다드/ALL)</td>
+        <td class="old">6,050 / 7,700 / 9,350원</td>
+        <td class="new">12,100 / 15,400 / 18,700원<div class="note">3년 약정가 × 2 자동 계산</div></td>
+      </tr>
+
+      <tr><td class="sec new" colspan="4">셋톱박스 요금 변경</td></tr>
+      <tr>
+        <td>IP 업셀 · 셋톱박스</td><td class="item">Smart 3 (6개월 미만)</td>
+        <td class="old">무료 (5월 한정 뱃지)</td>
+        <td class="new">4,400원<div class="note">5월 한정 뱃지 제거</div></td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 셋톱박스</td><td class="item">Smart 3 (7개월~1년)</td>
+        <td class="old">— (구분 없음)</td>
+        <td class="new free">무료 <span class="badge red">신규 구간</span></td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 셋톱박스</td><td class="item">Smart 3 (1년 초과 · 3년약정/약정불일치)</td>
+        <td class="old">무료</td>
+        <td class="new free">무료 (동일)</td>
+      </tr>
+
+      <tr><td class="sec new" colspan="4">B tv 무빙 · Smart 3 mini 요금 변경</td></tr>
+      <tr>
+        <td>IP 업셀 · 무빙</td><td class="item">Smart 3 mini (6개월 미만)</td>
+        <td class="old">무료 (5월 한정 뱃지)</td>
+        <td class="new">2,200원<div class="note">5월 한정 뱃지 제거, 요금 변경</div></td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 무빙</td><td class="item">Smart 3 mini (7개월~1년)</td>
+        <td class="old">— (구분 없음)</td>
+        <td class="new">4,400원 <span class="badge red">신규 구간</span></td>
+      </tr>
+      <tr>
+        <td>IP 업셀 · 무빙</td><td class="item">Smart 3 mini (1년 초과)</td>
+        <td class="old">2,200원</td>
+        <td class="new">2,200원 (동일)</td>
+      </tr>
+
+      <tr><td class="sec" colspan="4">IP 다셋톱 (변경 없음)</td></tr>
+      <tr>
+        <td>IP 다셋톱 · 무빙</td><td class="item">Smart 3 mini</td>
+        <td class="old">이하 무료 / 초과 2,200원 (5월 한정 뱃지)</td>
+        <td class="new">이하 무료 / 초과 2,200원<div class="note">요금 동일 · 5월 한정 뱃지만 제거</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">업셀/다셋 · CA상품</h2>
+  <table>
+    <thead>
+      <tr><th style="width:24%">위치</th><th style="width:20%">항목</th><th style="width:28%">5월</th><th style="width:28%">6월</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CA 업셀 · 상품</td><td class="item">POP 180 / POP 230</td>
+        <td class="old">7,700원 / 9,900원</td><td class="new">11,000원 / 13,200원 (+3,300원)</td>
+      </tr>
+      <tr>
+        <td>CA 업셀 · 셋톱박스</td><td class="item">Smart 3</td>
+        <td class="old">무료</td><td class="new">POP100 4,400 / 180 3,300 / 230 2,200원</td>
+      </tr>
+      <tr>
+        <td>CA 다셋톱 · 셋톱박스</td><td class="item">Smart 3</td>
+        <td class="old">무료</td><td class="new">POP100 4,400 / 180 3,300 / 230 2,200원</td>
+      </tr>
+      <tr>
+        <td>CA 업셀 / 다셋톱</td><td class="item">AI 2</td>
+        <td class="old">무료</td><td class="new free">단종</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-title">IP상품 · 사은품 & 선납권 <span class="badge red">신규 기능</span></h2>
+  <table>
+    <thead>
+      <tr><th style="width:24%">위치</th><th style="width:20%">항목</th><th style="width:28%">5월</th><th style="width:28%">6월</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>고객 사은품</td><td class="item">기가 / 기가라이트 + 스탠다드</td>
+        <td class="old">350,000원</td><td class="new">370,000원</td>
+      </tr>
+      <tr>
+        <td>고객 사은품</td><td class="item">스탠다드+(stdp)</td>
+        <td class="old">350,000원</td><td class="new">350,000원 (동일)</td>
+      </tr>
+      <tr>
+        <td>IP상품 · 선납권</td><td class="item">선납권 계산 기능</td>
+        <td class="old">없음</td>
+        <td class="new"><span class="badge red">신규</span> 월 1,000~12,000원 × 1~36개월 선택<div class="note">사은품 섹션 내 토글로 제공</div></td>
+      </tr>
+      <tr>
+        <td>IP상품 · 선납권</td><td class="item">월 예상 요금 반영</td>
+        <td class="old">—</td>
+        <td class="new">상세 항목에 선납권 월 금액 ×1.1(부가세) 차감 표시<div class="note">합계는 부가세 제외 금액 기준으로 차감</div></td>
+      </tr>
+      <tr>
+        <td>IP상품 · 선납권</td><td class="item">사은품 차감 표시</td>
+        <td class="old">—</td>
+        <td class="new">사은품 카드 내 "선납권 차감 −선납합계 → 잔여 사은품" 안내<div class="note">선납합계 = 월금액 × 개월수, 초과 시 부족분 경고 표시</div></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footer">
+    ※ 6월 계산기(rate.html) 화면에서는 변경된 항목에 빨간 테두리와 "6월" 배지가 표시됩니다.<br>
+    ※ 업셀/다셋 · IP상품의 고객 구분은 6개월 미만 / 7개월~1년 / 1년 초과(3년 약정·약정불일치)로 3단계 개편되었습니다.<br>
+    ※ "약정불일치" 요금은 "3년 약정" 정상가의 2배로 자동 계산되어, 정상가 변경 시 함께 갱신됩니다.<br>
+    ※ 다셋톱(6개월 이하/초과 구분)과 CA상품 정책은 이번 개편 대상이 아니며 변경 없습니다.<br>
+    생성일: 2026-06-19
+  </div>
+</div>
+</body>
+</html>
