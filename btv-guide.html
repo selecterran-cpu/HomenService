@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="theme-color" content="#0064FF" />
+<meta name="description" content="B tv 이용가이드 모바일 페이지 - SK브로드밴드 PDF/동영상 가이드 모음" />
+<title>B tv 이용가이드 · 모바일</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#F4F7FB;color:#1A1F2E;line-height:1.5;min-height:100vh;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;padding:0;color:inherit}
+img{max-width:100%;display:block}
+:root{--btv-blue:#0064FF;--btv-blue-dark:#0046B5;--btv-blue-light:#E6F0FF;--ink-900:#0F1626;--ink-700:#3A4357;--ink-500:#6B7388;--ink-300:#A8AFC0;--ink-100:#E3E7EF;--white:#FFFFFF;--shadow-sm:0 1px 2px rgba(15,22,38,.04);--shadow-md:0 4px 12px rgba(15,22,38,.08);--shadow-lg:0 10px 30px rgba(0,100,255,.15)}
+.back-to-main{position:fixed;top:10px;left:10px;z-index:999;width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.95);color:#0046B5;text-decoration:none;box-shadow:0 2px 10px rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.5)}
+.back-to-main svg{width:18px;height:18px}
+.header{position:sticky;top:0;z-index:50;background:linear-gradient(135deg,var(--btv-blue) 0%,var(--btv-blue-dark) 100%);color:var(--white);padding:16px 20px 14px 60px;box-shadow:var(--shadow-md)}
+.header-top{display:flex;align-items:center;gap:10px}
+.logo-mark{width:36px;height:36px;background:var(--white);color:var(--btv-blue);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;letter-spacing:-.5px;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.header-title{font-size:17px;font-weight:700;line-height:1.2}
+.header-sub{font-size:11px;opacity:.85;margin-top:2px}
+.tab-toggle{display:flex;gap:4px;background:rgba(0,0,0,.18);padding:4px;border-radius:12px;margin-top:14px}
+.tab-btn{flex:1;padding:9px 8px;border-radius:9px;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);transition:all .2s ease;display:flex;align-items:center;justify-content:center;gap:6px}
+.tab-btn.active{background:var(--white);color:var(--btv-blue);box-shadow:0 2px 6px rgba(0,0,0,.12)}
+.tab-btn svg{width:14px;height:14px}
+.search-wrap{margin-top:10px;position:relative}
+.search-input{width:100%;padding:11px 44px;border:none;outline:none;border-radius:12px;background:rgba(255,255,255,.95);font-size:14px;color:var(--ink-900);font-family:inherit}
+.search-input::placeholder{color:var(--ink-500)}
+.search-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:18px;height:18px;color:var(--ink-500);pointer-events:none}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:50%;display:none;align-items:center;justify-content:center;color:var(--ink-500)}
+.search-clear.show{display:flex}
+.chips{display:flex;gap:8px;padding:14px 20px 4px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:0 0 auto;padding:8px 14px;border-radius:999px;background:var(--white);color:var(--ink-700);font-size:13px;font-weight:500;border:1px solid var(--ink-100);transition:all .15s ease;white-space:nowrap}
+.chip.active{background:var(--btv-blue);color:var(--white);border-color:var(--btv-blue);box-shadow:var(--shadow-lg)}
+.chip-count{display:inline-block;margin-left:6px;font-size:11px;opacity:.7}
+main{padding:16px 20px 100px}
+.result-meta{font-size:12px;color:var(--ink-500);margin:4px 2px 10px}
+.card-list{display:grid;gap:10px}
+.card{display:flex;align-items:center;gap:14px;background:var(--white);border-radius:14px;padding:14px;box-shadow:var(--shadow-sm);border:1px solid transparent;transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}
+.card:active{transform:scale(.98);box-shadow:var(--shadow-md);border-color:var(--btv-blue-light)}
+.card-icon{flex:0 0 48px;width:48px;height:48px;border-radius:12px;background:var(--btv-blue-light);color:var(--btv-blue);display:flex;align-items:center;justify-content:center}
+.card-icon svg{width:24px;height:24px}
+.card-body{flex:1 1 auto;min-width:0}
+.card-title{font-size:14px;font-weight:600;color:var(--ink-900);margin-bottom:3px;line-height:1.35}
+.card-meta{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-500)}
+.badge{display:inline-block;padding:2px 7px;border-radius:4px;background:var(--btv-blue-light);color:var(--btv-blue-dark);font-size:10px;font-weight:700;letter-spacing:.3px}
+.badge-yt{background:#FEE2E2;color:#B91C1C}
+.badge-mp4{background:#DCFCE7;color:#15803D}
+.card-action{flex:0 0 auto;width:36px;height:36px;border-radius:10px;background:var(--btv-blue);color:var(--white);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,100,255,.3)}
+.card-action svg{width:18px;height:18px}
+.video-list{display:grid;gap:14px;grid-template-columns:1fr}
+.video-card{background:var(--white);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .12s ease,box-shadow .12s ease;position:relative}
+.video-card:active{transform:scale(.98);box-shadow:var(--shadow-md)}
+.video-thumb{position:relative;padding-top:56.25%;background:linear-gradient(135deg,var(--btv-blue-light) 0%,#D6E4FF 100%);overflow:hidden}
+.video-thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.video-thumb::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.45) 100%)}
+.play-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:56px;height:56px;background:rgba(255,255,255,.95);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(0,0,0,.25);z-index:2}
+.play-icon svg{width:22px;height:22px;color:var(--btv-blue);margin-left:3px}
+.video-type-pill{position:absolute;top:10px;right:10px;z-index:2;padding:4px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:.3px;background:rgba(0,0,0,.75);color:var(--white);display:flex;align-items:center;gap:4px}
+.video-type-pill.yt{background:#DC2626}
+.video-type-pill svg{width:10px;height:10px}
+.video-body{padding:12px 14px 14px}
+.video-title{font-size:14px;font-weight:600;color:var(--ink-900);line-height:1.4;margin-bottom:4px}
+.video-meta{font-size:11px;color:var(--ink-500);display:flex;gap:6px;align-items:center}
+.empty{text-align:center;padding:60px 20px;color:var(--ink-500)}
+.empty svg{width:48px;height:48px;color:var(--ink-300);margin-bottom:8px}
+.empty-title{font-size:14px;font-weight:600;color:var(--ink-700);margin-bottom:4px}
+.empty-sub{font-size:12px}
+.info-box{background:linear-gradient(135deg,#E6F0FF 0%,#F0F7FF 100%);border-radius:14px;padding:12px 14px;margin:16px 20px 0;font-size:12px;color:var(--ink-700);display:flex;gap:10px;align-items:flex-start}
+.info-box svg{flex:0 0 18px;color:var(--btv-blue);margin-top:1px}
+.info-box b{color:var(--btv-blue-dark)}
+footer{text-align:center;padding:24px 20px 32px;font-size:11px;color:var(--ink-500);line-height:1.6}
+footer a{color:var(--btv-blue);font-weight:500}
+@media (min-width:640px){body{background:#ECF1F8}.header,.chips,main,.info-box,footer{max-width:480px;margin-left:auto;margin-right:auto}.header{border-radius:0 0 18px 18px;padding-left:60px}}
+.fade-in{animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-to-main" aria-label="메인으로" title="메인으로">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+</a>
+<header class="header">
+  <div class="header-top">
+    <div class="logo-mark">B tv</div>
+    <div>
+      <div class="header-title">B tv 이용가이드</div>
+      <div class="header-sub">모바일 모음 · SK브로드밴드</div>
+    </div>
+  </div>
+  <div class="tab-toggle" role="tablist">
+    <button class="tab-btn active" data-tab="pdf" role="tab" aria-selected="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+      이용가이드
+    </button>
+    <button class="tab-btn" data-tab="video" role="tab" aria-selected="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2" ry="2"/></svg>
+      동영상 가이드
+    </button>
+  </div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <input id="search" class="search-input" type="search" placeholder="가이드 검색" autocomplete="off" />
+    <button class="search-clear" id="searchClear" aria-label="검색어 지우기">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+</header>
+<nav class="chips" id="chips" aria-label="카테고리 필터"></nav>
+<div class="info-box">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+  <div id="infoText"></div>
+</div>
+<main>
+  <div id="resultMeta" class="result-meta"></div>
+  <div id="contentArea"></div>
+  <div id="empty" class="empty" hidden>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <div class="empty-title">검색 결과가 없어요</div>
+    <div class="empty-sub">다른 키워드로 다시 검색해 보세요</div>
+  </div>
+</main>
+<footer>
+  Powered by SK Broadband · B world 가이드 미러<br/>
+  <a id="srcLink" target="_blank" rel="noopener">공식 페이지에서 보기 →</a>
+</footer>
+<script>
+const PDF_URL = "https://www.bworld.co.kr/customer/guide/btv_guide_list.do?menu_id=C03020000";
+const VIDEO_URL = "https://www.bworld.co.kr/customer/guide/video_guide_list.do?menu_id=C03010000";
+const CDN = "https://cdn.bworld.co.kr/home/fronta/data/skbroadband_com";
+
+const pdfGuides = [
+  {t:"B tv AI 기능 이용가이드", c:"기능", i:"ai"},
+  {t:"기가 와이파이 7 이용가이드", c:"와이파이", i:"wifi"},
+  {t:"SK브로드밴드 Be 안심 가이드", c:"기능", i:"shield"},
+  {t:"B tv 홈 이용가이드", c:"기본", i:"home"},
+  {t:"B tv 리모컨 이용가이드", c:"리모컨", i:"remote"},
+  {t:"상황별 문제 해결 가이드", c:"문제해결", i:"help"},
+  {t:"AI 5 셋톱박스 이용가이드", c:"셋톱박스", i:"stb"},
+  {t:"Smart 3 셋톱박스 이용가이드", c:"셋톱박스", i:"stb"},
+  {t:"Smart 3 mini 셋톱박스 이용가이드", c:"셋톱박스", i:"stb"},
+  {t:"AI 4 vision 셋톱박스 이용가이드", c:"셋톱박스", i:"stb"},
+];
+
+const videoGuides = [
+  {t:"AI 5 3분 셀프 설치 가이드", c:"셋톱박스", s:"mp4",
+   th:CDN+"/pc/img/guide/video/Image_20260304_174441.png",
+   u:CDN+"/common/mp4/AI5_self_guide.mp4"},
+  {t:"AI 4 vision 3분 셀프 설치 가이드", c:"셋톱박스", s:"mp4",
+   th:CDN+"/pc/img/guide/video/AI+4+%EA%B0%80%EC%9D%B4%EB%93%9C+%EC%8D%B8%EB%84%A4%EC%9D%BC.png",
+   u:CDN+"/common/mp4/AI4vision_self_guide.mp4"},
+  {t:"Smart 3 3분 셀프 설치 가이드", c:"셋톱박스", s:"mp4",
+   th:CDN+"/pc/img/guide/video/%EC%8A%A4%EB%A7%88%ED%8A%B83%20%EA%B0%80%EC%9D%B4%EB%93%9C%20%EC%8D%B8%EB%84%A4%EC%9D%BC.png",
+   u:CDN+"/common/mp4/smart3_self_guide_03.mp4"},
+  {t:"슬기로운 와이파이 생활", c:"와이파이", s:"mp4",
+   th:CDN+"/pc/img/guide/video/thumbnail.png",
+   u:"https://www.skbroadband.com/data/skbroadband_com/common/mp4/wifi.mp4"},
+  {t:"ZEM 이용 가이드", c:"키즈", s:"mp4",
+   th:CDN+"/pc/img/guide/video/thumnail_zem_guide_pc.png",
+   u:CDN+"/common/mp4/kids_zem_guide.mp4"},
+  {t:"ZEM 살아있는 영어", c:"키즈", s:"youtube",
+   th:CDN+"/pc/img/guide/video/thumnail_wifi_english_pc.png",
+   u:"https://www.youtube.com/watch?v=aYFBKqp1FzE"},
+  {t:"ZEM 마음친구 페어링 가이드", c:"키즈", s:"mp4",
+   th:CDN+"/pc/img/guide/video/thumnail_wifi_pairing_guide_pc.png",
+   u:CDN+"/common/mp4/wifi_pairing_guide.mp4"},
+  {t:"ZEM 랜드", c:"키즈", s:"youtube",
+   th:CDN+"/pc/img/guide/video/thumnail_wifi_zemland_pc.png",
+   u:"https://www.youtube.com/watch?v=b0WKTOCtIh0"},
+  {t:"B tv 홈 화면 알아보기", c:"기본", s:"youtube",
+   th:CDN+"/pc/img/guide/video/B+tv+%ED%99%88+%ED%99%94%EB%A9%B4+%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.jpg",
+   u:"https://www.youtube.com/watch?v=xgQMDmf_GIw"},
+  {t:"Smart 3 셋톱박스, 리모컨 알아보기", c:"리모컨", s:"youtube",
+   th:CDN+"/pc/img/guide/video/smart+3+%EC%85%8B%ED%86%B1%EB%B0%95%EC%8A%A4%EC%99%80+%EB%A6%AC%EB%AA%A8%EC%BB%A8+%EC%95%8C%EC%95%84%EB%B3%B4%EA%B8%B0.jpg",
+   u:"https://www.youtube.com/watch?v=9HOB6v_Pmd4"},
+  {t:"상황별 문제 해결하기", c:"문제해결", s:"youtube",
+   th:CDN+"/pc/img/guide/video/%EC%83%81%ED%99%A9%EB%B3%84+%EB%AC%B8%EC%A0%9C+%ED%95%B4%EA%B2%B0%ED%95%98%EA%B8%B0.jpg",
+   u:"https://www.youtube.com/watch?v=lcuLzIsRcRA"},
+  {t:"인터넷 연결 상태가 좋지 않아요", c:"인터넷", s:"youtube",
+   th:CDN+"/pc/img/guide/video/%EC%9D%B8%ED%84%B0%EB%84%B7%EC%97%B0%EA%B2%B0%EC%83%81%ED%83%9C%EA%B0%80%EC%A2%8B%EC%A7%80%EC%95%8A%EC%95%84%EC%9A%94.png",
+   u:"https://www.youtube.com/watch?v=m8REReH7fJk"},
+];
+
+const ICONS = {
+  ai:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>',
+  wifi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 20 0"/><line x1="12" x2="12.01" y1="20" y2="20"/></svg>',
+  shield:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>',
+  home:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>',
+  remote:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M12 6h.01"/><circle cx="9" cy="11" r="1"/><circle cx="15" cy="11" r="1"/><circle cx="9" cy="14" r="1"/><circle cx="15" cy="14" r="1"/><circle cx="12" cy="17" r="1"/></svg>',
+  help:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>',
+  stb:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="17" cy="12" r="1.2" fill="currentColor"/><line x1="6" y1="12" x2="13" y2="12"/></svg>',
+};
+
+let activeTab = "pdf";
+let activeCategory = "전체";
+let searchTerm = "";
+
+const $ = (id) => document.getElementById(id);
+function getList() { return activeTab === "pdf" ? pdfGuides : videoGuides; }
+
+function getCats() {
+  const list = getList();
+  const cats = ["전체", ...Array.from(new Set(list.map(g => g.c)))];
+  const counts = list.reduce((a, g) => (a[g.c] = (a[g.c]||0)+1, a), {});
+  counts["전체"] = list.length;
+  return { cats, counts };
+}
+
+function renderTabs() {
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    const isActive = btn.dataset.tab === activeTab;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+  if (activeTab === "pdf") {
+    $('infoText').innerHTML = '각 가이드의 <b>다운로드 버튼</b>을 누르면 SK브로드밴드 공식 가이드 페이지에서 PDF를 받을 수 있습니다.';
+    $('srcLink').href = PDF_URL;
+    $('search').placeholder = "가이드 검색 (예: 리모컨, 와이파이)";
+  } else {
+    $('infoText').innerHTML = '카드를 누르면 <b>새 탭에서 영상이 바로 재생</b>됩니다. (MP4 직접 재생 또는 YouTube 링크)';
+    $('srcLink').href = VIDEO_URL;
+    $('search').placeholder = "영상 검색 (예: 셋톱박스, ZEM)";
+  }
+}
+
+function renderChips() {
+  const { cats, counts } = getCats();
+  if (!cats.includes(activeCategory)) activeCategory = "전체";
+  $('chips').innerHTML = cats.map(cat => `
+    <button class="chip ${cat === activeCategory ? 'active' : ''}" data-cat="${cat}">
+      ${cat}<span class="chip-count">${counts[cat]}</span>
+    </button>
+  `).join('');
+  document.querySelectorAll('.chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeCategory = btn.dataset.cat;
+      renderChips();
+      renderContent();
+      btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    });
+  });
+}
+
+function renderContent() {
+  const list = getList().filter(g => {
+    const matchCat = activeCategory === "전체" || g.c === activeCategory;
+    const matchSearch = !searchTerm || g.t.toLowerCase().includes(searchTerm.toLowerCase());
+    return matchCat && matchSearch;
+  });
+
+  const meta = $('resultMeta');
+  const empty = $('empty');
+  const area = $('contentArea');
+
+  if (list.length === 0) {
+    meta.textContent = "";
+    area.innerHTML = "";
+    empty.hidden = false;
+    return;
+  }
+  empty.hidden = true;
+  meta.textContent = `총 ${list.length}개의 ${activeTab === "pdf" ? "가이드 PDF" : "동영상"}`;
+
+  if (activeTab === "pdf") {
+    area.className = "card-list fade-in";
+    area.innerHTML = list.map(g => `
+      <a class="card" href="${PDF_URL}" target="_blank" rel="noopener">
+        <div class="card-icon" aria-hidden="true">${ICONS[g.i] || ICONS.help}</div>
+        <div class="card-body">
+          <div class="card-title">${g.t}</div>
+          <div class="card-meta">
+            <span class="badge">PDF</span>
+            <span>${g.c} · 국문</span>
+          </div>
+        </div>
+        <div class="card-action" aria-label="다운로드">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
+        </div>
+      </a>
+    `).join('');
+  } else {
+    area.className = "video-list fade-in";
+    area.innerHTML = list.map(g => {
+      const isYT = g.s === "youtube";
+      return `
+        <a class="video-card" href="${g.u}" target="_blank" rel="noopener" aria-label="${g.t} 영상 재생">
+          <div class="video-thumb">
+            <img src="${g.th}" alt="${g.t} 썸네일" loading="lazy" onerror="this.style.display='none'">
+            <div class="video-type-pill ${isYT ? 'yt' : ''}">
+              ${isYT ? '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.6 3.6 12 3.6 12 3.6s-7.6 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.8.5 9.4.5 9.4.5s7.6 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>' : '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'}
+              ${isYT ? 'YouTube' : 'MP4'}
+            </div>
+            <div class="play-icon"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+          </div>
+          <div class="video-body">
+            <div class="video-title">${g.t}</div>
+            <div class="video-meta">
+              <span class="badge ${isYT ? 'badge-yt' : 'badge-mp4'}">${isYT ? 'YouTube' : 'MP4'}</span>
+              <span>${g.c}</span>
+            </div>
+          </div>
+        </a>
+      `;
+    }).join('');
+  }
+}
+
+const searchInput = $('search');
+const searchClear = $('searchClear');
+searchInput.addEventListener('input', (e) => {
+  searchTerm = e.target.value.trim();
+  searchClear.classList.toggle('show', !!searchTerm);
+  renderContent();
+});
+searchClear.addEventListener('click', () => {
+  searchInput.value = "";
+  searchTerm = "";
+  searchClear.classList.remove('show');
+  renderContent();
+  searchInput.focus();
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    if (activeTab === btn.dataset.tab) return;
+    activeTab = btn.dataset.tab;
+    activeCategory = "전체";
+    searchInput.value = "";
+    searchTerm = "";
+    searchClear.classList.remove('show');
+    renderTabs();
+    renderChips();
+    renderContent();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+
+renderTabs();
+renderChips();
+renderContent();
+</script>
+</body>
+</html>
