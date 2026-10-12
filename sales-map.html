@@ -123,13 +123,65 @@ table.st tr.tot td{font-weight:700;background:var(--soft)}
 
 #toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%);background:#1d1f23;color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;z-index:100;max-width:90%;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 
+/* 모바일 전용 요소 (PC에서는 숨김) */
+#mnav,.grab,#menuBtn,#menuPop{display:none}
+
 @media (max-width:760px){
-  header{padding:8px 12px}
-  .me .role{display:none}
-  .body{flex-direction:column}
-  aside{width:100%;height:44%;border-right:0;border-bottom:1px solid var(--line)}
-  .sheet{top:auto;height:84%;width:100%;border-radius:16px 16px 0 0;box-shadow:0 -6px 24px rgba(0,0,0,.16)}
-  .mapctl{font-size:11px;padding:6px 8px}
+  html,body{overflow:hidden;overscroll-behavior:none}
+  #app{height:100vh;height:100dvh}
+  header{padding:8px 12px;padding-top:max(8px,env(safe-area-inset-top));position:relative;z-index:30}
+  .brand{font-size:15px}
+  .me{gap:8px}
+  .me .role,#pwBtn,#logoutBtn{display:none}
+  #menuBtn{display:inline-block;padding:6px 12px;font-size:18px;line-height:1}
+  #menuPop:not([hidden]){display:block;position:absolute;right:10px;top:calc(100% + 4px);background:#fff;border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.15);overflow:hidden;min-width:180px}
+  #menuPop .who{padding:12px 16px;font-size:12px;color:var(--sub);border-bottom:1px solid var(--line)}
+  #menuPop button{display:block;width:100%;text-align:left;padding:14px 16px;border:0;background:#fff;font-size:15px}
+  #menuPop button:active{background:var(--soft)}
+
+  /* 지도 전체화면 + 아래에서 올라오는 패널 */
+  .body{position:relative;display:block}
+  #mapWrap{position:absolute;inset:0}
+  aside{position:absolute;left:0;right:0;bottom:0;width:auto;height:64%;border:0;border-radius:18px 18px 0 0;box-shadow:0 -6px 24px rgba(0,0,0,.16);z-index:20;transition:transform .25s ease}
+  #app.mmap aside{transform:translateY(105%);box-shadow:none}
+  aside .tabs{display:none}
+  .grab{display:flex;justify-content:center;align-items:center;flex:none;height:26px;cursor:pointer}
+  .grab i{width:40px;height:5px;border-radius:3px;background:#d3d7dd}
+  .pane{padding:4px 14px 16px}
+
+  /* 하단 탭바 */
+  #mnav{display:flex;flex:none;background:#fff;border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);position:relative;z-index:30}
+  #mnav button{flex:1;height:58px;border:0;background:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;color:var(--mute);position:relative}
+  #mnav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+  #mnav button.on{color:var(--red);font-weight:700}
+  #mnav .cnt{position:absolute;top:6px;left:calc(50% + 6px);min-width:16px;padding:0 4px;border-radius:8px;background:var(--red);color:#fff;font-size:10px;line-height:16px;font-weight:700}
+
+  /* 지도 위 컨트롤 */
+  .mapctl{font-size:11px;padding:6px 8px;left:8px;top:8px;max-width:calc(100% - 70px)}
+  .mapctl .lg{gap:6px;margin-bottom:4px}
+  .locbtn{bottom:14px;right:10px;padding:10px 14px;font-size:14px}
+
+  /* 터치하기 쉽게 */
+  input,select,textarea{font-size:16px;padding:11px 12px}
+  .btn{padding:11px 14px;font-size:15px}
+  .btn.sm{padding:9px 12px;font-size:14px}
+  .chip{padding:7px 12px;font-size:13px}
+  .item{padding:13px 8px}
+  .item .t{font-size:15px}
+  .item .s{font-size:13px}
+  .tabs button{padding:12px 0}
+
+  /* 상세·등록 화면은 아래에서 올라오는 시트 */
+  .sheet{top:auto;height:90%;height:90dvh;width:100%;border-radius:18px 18px 0 0;box-shadow:0 -6px 24px rgba(0,0,0,.18)}
+  .sheet .hd{padding:14px 16px 12px}
+  .sheet .bd{padding:4px 16px calc(24px + env(safe-area-inset-bottom))}
+  .steps button{padding:10px 0;font-size:14px}
+  .modal{align-items:flex-end;padding:0}
+  .modal .card{max-width:none;border-radius:18px 18px 0 0;max-height:92vh;max-height:92dvh;padding:20px 16px calc(20px + env(safe-area-inset-bottom))}
+  #login .card{padding:24px 20px}
+  .pick{width:min(260px,80vw)}
+  #toast{bottom:calc(76px + env(safe-area-inset-bottom))}
+  table.st th,table.st td{padding:8px 3px}
 }
 </style>
 </head>
@@ -169,10 +221,16 @@ table.st tr.tot td{font-weight:700;background:var(--soft)}
 <div id="app" hidden>
   <header>
     <div class="brand"><span class="mark">B</span>영업맵</div>
-    <div class="me"><b id="meName"></b><span class="role" id="meRole"></span><button class="btn sm" id="pwBtn">비밀번호 변경</button><button class="btn sm" id="logoutBtn">로그아웃</button></div>
+    <div class="me"><b id="meName"></b><span class="role" id="meRole"></span><button class="btn sm" id="pwBtn">비밀번호 변경</button><button class="btn sm" id="logoutBtn">로그아웃</button><button class="btn sm" id="menuBtn" aria-label="메뉴">⋯</button></div>
+    <div id="menuPop" hidden>
+      <div class="who" id="menuWho"></div>
+      <button id="mPw">비밀번호 변경</button>
+      <button id="mLogout">로그아웃</button>
+    </div>
   </header>
   <div class="body">
     <aside>
+      <div class="grab" id="grab" title="지도 보기"><i></i></div>
       <nav class="tabs">
         <button data-tab="list" class="on">영업DB</button>
         <button data-tab="search">장소검색</button>
@@ -218,6 +276,14 @@ table.st tr.tot td{font-weight:700;background:var(--soft)}
       <button class="locbtn" id="locBtn">◎ 내 위치</button>
     </div>
   </div>
+  <nav id="mnav">
+    <button data-m="map"><svg viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2z"/><path d="M9 4v14M15 6v14"/></svg>지도</button>
+    <button data-m="list"><svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>영업DB</button>
+    <button data-m="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>검색</button>
+    <button data-m="recontact"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>재접촉<span class="cnt" id="mRcCnt" hidden></span></button>
+    <button data-m="stats"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>현황</button>
+    <button data-m="admin" id="mAdmin" hidden><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.5 3.4-5.5 6.5-5.5s5.7 2 6.5 5.5"/><path d="M16 4.5a3.5 3.5 0 0 1 0 7M18.5 14.8c1.7.8 2.7 2.6 3 5.2"/></svg>직원<span class="cnt" id="mPendCnt" hidden></span></button>
+  </nav>
 </div>
 
 <div class="sheet" id="sheet" hidden>
@@ -525,7 +591,7 @@ async function loadMembers() {
   inactive = data.filter(m => !m.approved && m.branch === me.branch);
   if (me.role === '지점장') {
     $('#adminTab').hidden = false;
-    $('#pendCnt').hidden = !pending.length; $('#pendCnt').textContent = pending.length;
+    $('#pendCnt').hidden = !pending.length; $('#pendCnt').textContent = pending.length; syncNav();
     if (curTab === 'admin') renderAdmin();
   }
   const vis = me.role === '지점장' ? members : me.role === '파트장' ? members.filter(m => m.part === me.part) : [];
@@ -567,18 +633,50 @@ function subscribe() {
     .subscribe();
 }
 
+/* ---------------- 탭 전환 / 모바일 화면 ---------------- */
+const isMobile = () => matchMedia('(max-width:760px)').matches;
+function switchTab(tab) {
+  curTab = tab;
+  document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x.dataset.tab === tab));
+  document.querySelectorAll('.pane').forEach(x => x.classList.toggle('on', x.id === 'pane-' + tab));
+  if (tab === 'stats') renderStats();
+  if (tab === 'admin') loadMembers();
+  if (tab !== 'search') clearSearchPins();
+  else renderSearch(false);
+  setMView('panel');
+}
+// 모바일에서 'map' = 지도만, 'panel' = 목록 패널을 올림 (PC에서는 영향 없음)
+function setMView(v) {
+  $('#app').classList.toggle('mmap', v === 'map');
+  const onMap = v === 'map';
+  document.querySelectorAll('#mnav button').forEach(b => b.classList.toggle('on', onMap ? b.dataset.m === 'map' : b.dataset.m === curTab));
+}
+function toMapOnMobile() { if (isMobile()) setMView('map'); }
+function syncNav() {
+  $('#mRcCnt').hidden = $('#rcCnt').hidden; $('#mRcCnt').textContent = $('#rcCnt').textContent;
+  $('#mPendCnt').hidden = $('#pendCnt').hidden; $('#mPendCnt').textContent = $('#pendCnt').textContent;
+  $('#mAdmin').hidden = $('#adminTab').hidden;
+}
+
 /* ---------------- UI 공통 ---------------- */
 function setupUI() {
   $('#legend').innerHTML = STATUS.map(s => `<span><i class="dot" style="background:${SCOLOR[s]}"></i>${s}</span>`).join('');
-  document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => {
-    curTab = b.dataset.tab;
-    document.querySelectorAll('.tabs button').forEach(x => x.classList.toggle('on', x === b));
-    document.querySelectorAll('.pane').forEach(x => x.classList.toggle('on', x.id === 'pane-' + curTab));
-    if (curTab === 'stats') renderStats();
-    if (curTab === 'admin') loadMembers();
-    if (curTab !== 'search') clearSearchPins();
-    else renderSearch(false);
+  document.querySelectorAll('.tabs button').forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+
+  // 모바일: 하단 탭바, 패널 접기, 메뉴
+  document.querySelectorAll('#mnav button').forEach(b => b.addEventListener('click', () => {
+    const m = b.dataset.m;
+    if (m === 'map') return setMView('map');
+    if (m === curTab && !$('#app').classList.contains('mmap')) return setMView('map');  // 같은 탭 다시 누르면 접기
+    switchTab(m);
   }));
+  $('#grab').addEventListener('click', () => setMView('map'));
+  $('#menuBtn').addEventListener('click', e => { e.stopPropagation(); $('#menuWho').textContent = [me.name, me.branch, me.part, me.role].filter(Boolean).join(' · '); $('#menuPop').hidden = !$('#menuPop').hidden; });
+  document.addEventListener('click', e => { if (!e.target.closest('#menuPop')) $('#menuPop').hidden = true; });
+  $('#mPw').addEventListener('click', () => { $('#menuPop').hidden = true; $('#pwBtn').click(); });
+  $('#mLogout').addEventListener('click', () => $('#logoutBtn').click());
+  window.addEventListener('resize', () => map?.relayout());
+  if (isMobile()) setMView('map');
 
   const chips = $('#statusChips');
   chips.innerHTML = STATUS.map(s => `<button class="chip on" data-s="${s}"><i class="dot" style="background:${SCOLOR[s]}"></i>${s}<span data-c="${s}"></span></button>`).join('');
@@ -609,7 +707,7 @@ function setupUI() {
     geocoder.addressSearch(q, (res, st) => {
       addrResults = st === kakao.maps.services.Status.OK ? res.slice(0, 5) : [];
       renderSearch(false);
-      if (addrResults.length && !searchResults.length) moveToAddr(0);
+      if (addrResults.length && !searchResults.length && !isMobile()) moveToAddr(0);
     });
     places.keywordSearch(q, searchCb, { location: map.getCenter() });
   });
@@ -669,7 +767,7 @@ function renderList() {
 $('#list').addEventListener('click', e => {
   const it = e.target.closest('.item'); if (!it) return;
   const p = prospects.find(x => x.id == it.dataset.id); if (!p) return;
-  map.panTo(new kakao.maps.LatLng(p.lat, p.lng)); openDetail(p.id);
+  toMapOnMobile(); map.panTo(new kakao.maps.LatLng(p.lat, p.lng)); openDetail(p.id);
 });
 
 /* ---------------- 장소검색 ---------------- */
@@ -699,6 +797,7 @@ let addrResults = [];
 const addrText = r => r.road_address?.address_name || r.address?.address_name || r.address_name;
 function moveToAddr(i) {
   const r = addrResults[i]; if (!r) return;
+  toMapOnMobile();
   const pos = new kakao.maps.LatLng(+r.y, +r.x);
   map.setLevel(3); map.setCenter(pos);
   showPick(pos);
@@ -742,7 +841,33 @@ function renderSearch(fit) {
   if (more) more.addEventListener('click', () => { appendNext = true; searchPager.nextPage(); });
 }
 
+// 모바일: 검색 결과를 지도 위 작은 창으로 (상호 + 등록 버튼)
+function showPlacePop(i) {
+  const d = searchResults[i]; if (!d) return;
+  hidePick();
+  const pos = new kakao.maps.LatLng(+d.y, +d.x);
+  const dup = dupOf(d.id);
+  const el = document.createElement('div');
+  el.className = 'pick';
+  el.style.marginBottom = '18px';
+  el.innerHTML = `<div class="addr">${i + 1}. ${esc(d.place_name)}</div>
+    <div class="sub">${esc(d.road_address_name || d.address_name)}${d.phone ? ' · ' + esc(d.phone) : ''}</div>
+    <div class="row"><button class="btn sm" data-x>닫기</button>${dup
+      ? (dup.mine ? `<button class="btn sm" data-open style="flex:1.6">등록됨 · 보기</button>` : `<span class="muted" style="flex:1.6;text-align:center">담당 ${esc(dup.owner)}</span>`)
+      : `<button class="btn sm primary" data-reg style="flex:1.6">영업DB 등록</button>`}</div>`;
+  ['click', 'mousedown', 'touchstart', 'dblclick'].forEach(t => el.addEventListener(t, ev => ev.stopPropagation()));
+  el.querySelector('[data-x]').addEventListener('click', hidePick);
+  el.querySelector('[data-open]')?.addEventListener('click', () => { hidePick(); openDetail(dup.id); });
+  el.querySelector('[data-reg]')?.addEventListener('click', () => {
+    hidePick();
+    openRegister({ name: d.place_name, address: d.road_address_name || d.address_name,
+      category: (d.category_name || '').split('>').pop().trim(), phone: d.phone, lat: +d.y, lng: +d.x, place_id: d.id });
+  });
+  pickOverlay = new kakao.maps.CustomOverlay({ map, position: pos, content: el, xAnchor: .5, yAnchor: 1, zIndex: 9 });
+}
+
 function focusSearch(i) {
+  if (isMobile()) { setMView('map'); const d = searchResults[i]; map.panTo(new kakao.maps.LatLng(+d.y, +d.x)); return showPlacePop(i); }
   const d = searchResults[i];
   map.panTo(new kakao.maps.LatLng(+d.y, +d.x));
   const it = document.querySelector(`#searchList .item[data-i="${i}"]`);
@@ -955,7 +1080,7 @@ function bindDetail(p) {
     if (a) { $('#dAddr').value = a; toast('주소를 찾았습니다. 저장을 누르면 반영됩니다'); } else toast('이 위치의 주소를 찾지 못했습니다');
   });
   $('#dCopy').addEventListener('click', () => copyText(p.address));
-  $('#dGo').addEventListener('click', () => { map.setLevel(3); map.panTo(new kakao.maps.LatLng(p.lat, p.lng)); });
+  $('#dGo').addEventListener('click', () => { if (isMobile()) { closeSheet(); setMView('map'); } map.setLevel(3); map.panTo(new kakao.maps.LatLng(p.lat, p.lng)); });
 
   $('#aAdd').addEventListener('click', async () => {
     const content = $('#aText').value.trim(); if (!content) return toast('활동 내용을 입력하세요');
@@ -1012,7 +1137,7 @@ async function loadRecontacts() {
 }
 function renderBadge() {
   const n = recontacts.filter(r => r.due_date <= today()).length;
-  $('#rcCnt').hidden = !n; $('#rcCnt').textContent = n;
+  $('#rcCnt').hidden = !n; $('#rcCnt').textContent = n; syncNav();
 }
 function renderRecontacts() {
   const t = today();
@@ -1033,7 +1158,7 @@ function renderRecontacts() {
 $('#rcList').addEventListener('click', e => {
   const it = e.target.closest('.item'); if (!it) return;
   const p = prospects.find(x => x.id == it.dataset.id); if (!p) return;
-  map.panTo(new kakao.maps.LatLng(p.lat, p.lng)); openDetail(p.id);
+  toMapOnMobile(); map.panTo(new kakao.maps.LatLng(p.lat, p.lng)); openDetail(p.id);
 });
 
 /* ---------------- 현황 탭 ---------------- */
